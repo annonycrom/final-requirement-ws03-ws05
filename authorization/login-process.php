@@ -30,6 +30,12 @@
     $_SESSION['user_id'] = $user['USER_ID'];
     $_SESSION['logged_in'] = true;
 
-    header('Location: ../dashboard/user-dashboard.php');
+    if ($_SESSION['user_role'] === 'Super Admin'){
+        header('Location: ../dashboard/super-admin-dashboard.php');
+    }elseif($_SESSION['user_role'] === 'Admin'){
+        header('Location: ../dashboard/admin-dashboard.php');
+    }else{
+        header('Location: ../index.php');
+    }
     exit;
 ?>

@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    $mode = $_GET['mode'] ?? '';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,8 +43,8 @@
         verify.addEventListener('click', (event)=>{
             event.preventDefault();
 
-            if(form.action.includes('/registration.php')){
-                form.action = 'login.php';
+            if(form.action.includes('registration.php')){
+                form.action = 'login-process.php';
                 formTitle.textContent = 'Sign In';
                 submit.value = 'Sign In';
                 verify.textContent = 'Register here.';
@@ -59,7 +64,11 @@
                 first_name.style.display = 'block';
                 last_name.style.display = 'block';
             }
-        })
+        });
+        const urlParam = new URLSearchParams(window.location.search);
+        if (urlParam.get('mode') === 'login'){
+            verify.click();
+        }
     });
 </script>
 </html>
