@@ -1,11 +1,11 @@
 <?php
     session_start();
-    require('../db-connect.php');
+    require('../../db-connect.php');
 
     if(!isset($_SESSION['logged_in']) || $_SESSION['user_role'] !== 'Super Admin'){
-        header('Location: ../index.php?error=unauthorized');
+        header('Location: ../../index.php?error=unauthorized');
     }
-    $sql = "SELECT USER_ID, USER_EMAIL, USER_ROLE FROM accounts WHERE USER_ROLE =  'Admin'";
+    $sql = "SELECT USER_ID, USER_EMAIL, USER_ROLE FROM accounts WHERE USER_ROLE =  'Admin' AND USER_STATUS = 'Active'";
     $result = $conn->query($sql);
 
 ?>
@@ -22,7 +22,7 @@
     <nav>
         <a href="add-admin.php">Add New Admin</a>
         <a href="admin-dashboard.php">Item Management</a>
-        <a href="../index.php?action=logout">Logout</a>
+        <a href="../../index.php?action=logout">Logout</a>
     </nav>
     <h2>Manage Admins</h2>
     <table border = "1">

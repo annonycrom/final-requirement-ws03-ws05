@@ -9,7 +9,7 @@
         die("Please fill both fields.");
     }
 
-    $sql = "SELECT USER_ID, USER_PASSWORD , USER_ROLE FROM accounts WHERE USER_EMAIL = ? LIMIT 1";
+    $sql = "SELECT USER_ID, USER_PASSWORD , USER_ROLE, USER_STATUS FROM accounts WHERE USER_EMAIL = ? LIMIT 1";
     $stmt = $conn->prepare($sql);
 
     if (!$stmt){
@@ -26,14 +26,19 @@
     if(!password_verify($password,$user['USER_PASSWORD'])){
         die ("Invalid password.");    
     }
+
+    if($user['USER_STATUS'] !== 'Active'){
+        die('Access denied: This Account has been removed. Please contact the management for more info.');
+    }
+
     $_SESSION['user_role'] = $user['USER_ROLE'];
     $_SESSION['user_id'] = $user['USER_ID'];
     $_SESSION['logged_in'] = true;
 
     if ($_SESSION['user_role'] === 'Super Admin'){
-        header('Location: ../dashboard/super-admin-dashboard.php');
+        header('Location: ../dashboard/super-admin/super-admin-dashboard.php');
     }elseif($_SESSION['user_role'] === 'Admin'){
-        header('Location: ../dashboard/admin-dashboard.php');
+        header('Location: ../dashboard/admin/admin-dashboard.php');
     }else{
         header('Location: ../index.php');
     }

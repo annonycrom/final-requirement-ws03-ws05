@@ -2,8 +2,11 @@
     session_start();
     require('db-connect.php');
 
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    header("Pragma: no-cache");
+
     if (isset($_GET['action']) && $_GET['action'] === 'logout'){
-        session_unset();
+        $_SESSION = array();
         session_destroy();
         header('Location: index.php');
         exit;
