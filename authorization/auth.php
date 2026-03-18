@@ -8,22 +8,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css?v=1.1">
     <title>Document</title>
 </head>
-<style>
-    .form-container{
-        display:block;
-    }
-</style>
 <body>
     <div class="form-container">
-        <h1 id="formTitle">Register</h1>
+        <h1 id="formTitle" class="formTitle">Register</h1>
         <form action="registration.php" method="post" id="authForm">
-            <input type="text" name="first_name" id="first_name"  required>
-            <input type="text" name="last_name" id="last_name" required>
-            <input type="text" name="email" id="email" required>
-            <input type="text" name="password" id="password" required>
-            
+            <div class="input_container" id="firstname_input">
+                <input type="text" name="first_name" id="first_name"  required>
+                <label for="first_name">Firstname</label>
+                <span class="underline"></span>
+            </div>
+            <div class="input_container" id="lastname_input">
+                <input type="text" name="last_name" id="last_name" required>
+                <label for="first_name">Lastname</label>
+                <span class="underline"></span>
+            </div>
+            <div class="input_container">
+                <input type="text" name="email" id="email" required>
+                <label for="first_name">Email</label>
+                <span class="underline"></span>
+            </div>
+            <div class="input_container">
+                <input type="password" name="password" id="password" required>
+                <label for="first_name">Password</label>
+                <span class="underline"></span>
+            </div>
+
             <input type="submit" id="submit" value="Register" >
             <p>
                 <a href="#" id="verify">Already have account.</a>
@@ -39,30 +51,32 @@
         const verify = document.getElementById('verify');
         const submit = document.getElementById('submit');
         const formTitle = document.getElementById('formTitle');
+        const firstname_input = document.getElementById('firstname_input');
+        const lastname_input = document.getElementById('lastname_input');
 
         verify.addEventListener('click', (event)=>{
             event.preventDefault();
 
             if(form.action.includes('registration.php')){
                 form.action = 'login-process.php';
-                formTitle.textContent = 'Sign In';
+                formTitle.textContent = 'Sign In';  
                 submit.value = 'Sign In';
                 verify.textContent = 'Register here.';
 
                 first_name.disabled = true;
                 last_name.disabled = true;
-                first_name.style.display = 'none';
-                last_name.style.display = 'none';
+                firstname_input.classList.add('hidden');
+                lastname_input.classList.add('hidden');
             }else{
                 form.action = 'registration.php';
-                formTitle.textContent = 'Sign Up';
-                submit.value = 'Sign Up';
+                formTitle.textContent = 'Register';
+                submit.value = 'Register';
                 verify.textContent = 'Already have account.';
 
                 first_name.disabled = false;
                 last_name.disabled = false;
-                first_name.style.display = 'block';
-                last_name.style.display = 'block';
+                firstname_input.classList.remove("hidden");
+                lastname_input.classList.remove("hidden");
             }
         });
         const urlParam = new URLSearchParams(window.location.search);

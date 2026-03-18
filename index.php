@@ -28,6 +28,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/style.css?v=1.1">
     <title>Document</title>
 </head>
 <body>
@@ -45,7 +46,6 @@
         <?php endif; ?>
     </div>
     </header>
-
     <section>
         <form action="index.php" method="get">
             <input type="text" name="search" id="search" placeholder = "Search Item" value = "<?php echo htmlspecialchars($search); ?>">

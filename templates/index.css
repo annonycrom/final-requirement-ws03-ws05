@@ -1,0 +1,34 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard {
+  display: flex; /* Sidebar and main content side-by-side */
+  background-color: #f4f5f9;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.car-listings {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns for car cards */
+  gap: 20px;
+}
+
+.car-card {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.rent-btn {
+  background-color: #3563e9; /* Signature blue color */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+}

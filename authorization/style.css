@@ -1,0 +1,121 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.form-container{
+    width: 380px;
+    background-color: white;
+    border: 1px solid #ccc;
+    backdrop-filter: blur(12px);
+    border-radius: 4px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.9);
+    overflow: hidden;
+    position: absolute;
+    padding: 50px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition: border-color 0.3s;
+    display: block;
+}
+
+#formTitle{
+    margin-bottom:20px ;
+    font-size: 24px;
+    color: #333;
+    font-weight: bolder;
+    text-align: center;
+}
+
+input[type="text"],input[type="password"]{
+    width: 100%;
+    border: none;
+    border-bottom:2px solid #ccc ;
+    padding: 10px 0;
+    display: block;
+    box-sizing: border-box;
+    background:transparent;
+    outline: none;
+}
+.input_container{
+    position: relative;
+    margin: 20px 0;
+}
+.input_container label{
+    position: absolute;
+    top: 5px;
+    color: #ccc;
+    transition: 0.3s;
+    pointer-events: none;
+}
+
+.input_container input:focus+label,
+.input_container input:valid+label{
+    top: -15px;
+    color: #4f46e5;
+    font-size: 12px;
+}
+
+.input_container .underline{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: black;
+    transform: scaleX(0);
+    transition: 0.3s;
+}
+
+.input_container input:focus~.underline,
+.input_container input:valid~.underline{
+    transform: scaleX(1);
+}
+
+.hidden{
+    display: none !important;
+}
+
+input[type="submit"]{
+    width: 100%;
+    background-color: #4f46e5;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top:10px;
+    transition: background-color 0.2, transform 0.1s;
+}
+
+input[type="submit"]:hover{
+    background-color: #4338ca;
+}
+
+p{
+    text-align: center;
+    margin-top: 20px;
+}
+
+#verify{
+    color: #6366f1;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+#verify:hover{
+    color: #4f46e5;
+    text-decoration: underline;
+}
