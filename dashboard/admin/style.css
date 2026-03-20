@@ -104,25 +104,33 @@ body,html{
 }
 
 .admin-table td{
-    padding: 15px;
+    padding: 20px 15px;
+    vertical-align: middle;
     border-bottom: 1px solid #f1f5f9;
     font-size: 0.9rem;
 }
 
 .action-cells{
-    width: 220px;
-    text-align: center;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    min-width: 320px ;
+    vertical-align: middle !important;
 }
 
  .btn{
-    display: inline-block;
-    width: 90px;
+    display: inline-flex;
+    justify-content: center;
+    width: 95px;
+    height: 36px;
     text-align: center;
     padding: 8px 0;
     border-radius: 6px;
     font-size: 0.8rem;
     font-weight: 600;
     text-decoration: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
  }
 
  .btn-approve{
@@ -137,12 +145,12 @@ body,html{
  }
 
  .btn-approve:hover{
-    background: #166534;
+    background: #16a34a;
     color: white;
  }
 
  .btn-archive:hover{
-    background: #991b1b;
+    background: #dc2626;
     color: white;
  }
 
@@ -152,3 +160,46 @@ body,html{
     color: #94a3b8;
     font-style: italic;
  }
+
+.edit-input{
+    border: none;
+    background: transparent;
+    width: 100%;
+    outline: none;
+    font-size: 0.9rem;
+    color: #333;
+    padding: 5px;
+    transition: 0.2s;
+}
+
+.edit-input.editable{
+    background: #fff;
+    border: 1px solid #4f46e5;
+    border-radius: 4px;
+}
+
+textarea.edit-input{
+    resize: none;
+    height: auto;
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    min-height: 20px;
+    line-height: 1.5;
+    height: auto;
+}
+
+.btn-view-cancel{
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.btn-view-cancel:hover{
+    background: #94a3b8;
+    color: white;
+}
+
+.desc-in[readonly]{
+    height: 35px;
+    overflow: hidden;
+}

@@ -35,6 +35,9 @@
     <header>
     <h1>Welcome</h1>
     <div class="navbar">
+        <?php if(isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'Admin'):?>
+            <a href="dashboard/admin/admin-dashboard.php">Admin</a>
+        <?php endif; ?>
         <?php if (!isset($_SESSION['logged_in'])): ?>
             <a href="authorization/auth.php?mode=login">Log in</a>
             <a href="authorization/auth.php?mode=registration">Register</a>
