@@ -1,7 +1,7 @@
 body{
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f6;
+    background-color: #FFF6F6;
     color: #333;
 }
 
@@ -11,12 +11,12 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 5px rgba(140,199,196,0.5);
 }
 
 header h1{
     font-size: 1.4rem;
-    color: #4f46e5;
+    color: #DB1A1A;
 }
 
 .navbar a{
@@ -28,7 +28,7 @@ header h1{
 }
 
 .navbar a:hover{
-    color:#4f46e5
+    color:#a51111;
 }
 
 section form{
@@ -43,38 +43,47 @@ section form{
     border: 1px solid #ddd;
     border-radius: 8px 0 0 8px;
     outline: none;
+    box-shadow: 0 2px 5px rgba(140,199,196,0.5);
 }
 
 section input[type="submit"]{
     padding: 12px 25px;
-    background-color: #4f46e5;
+    background-color: #DB1A1A;
     color: white;
     border: none;
     border-radius: 0 8px 8px 0;
     cursor: pointer;
     font-weight: bold;
+    box-shadow: 0 2px 5px rgba(140,199,196,0.5);
 }
+
+section input[type="submit"]:hover{
+    background-color: #a51111;
+}
+
 /*products section*/
 .product-grid{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
-    gap: 25px;
-    padding: 0 5% 50px;
+    gap: 30px;
+    padding: 20px 5% 50px;
 }
 
 .card{
-    background: white;
+    background: #FFF6F6;
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 8px 12px rgba(140,199,196,0.5);
     transition: 0.3s;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .card:hover{
     transform:translateY(-5px);
     box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    background-color: #FFF6F6;
 }
 
 .card h3{
@@ -82,24 +91,58 @@ section input[type="submit"]{
     color: #111;
 }
 
-.card p{
+.card .description{
     font-size: 0.9rem;
     color: #666;
     line-height: 1.5;
     flex-grow: 1;
-    margin-bottom: 20px;
+    margin: 0 0 20px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 4.5rem;
+    flex-grow: 0;
 }
 
 .card input[type="button"]{
     width: 100%;
     padding: 10px;
-    background: #111;
+    background: #2C687B;
     color: white;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
 }
+
+.card .price{
+    margin-bottom: 15px !important;
+    font-weight: bold !important;
+    color: #2c7a7b !important;
+    font-size: 1.2rem !important;
+
+}
+
+.btn-order{
+    width: 100%;
+    padding: 10px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;    
+}
+
+/*Item Image*/
+
+.item-image img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
 
 /*suggestion section*/
 
@@ -119,4 +162,248 @@ section input[type="submit"]{
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
+}
+
+/*Modal for viewing details*/
+
+.view-details{
+    background: #8CC7C4 !important;
+    border: none;
+    color: white !important ;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+    padding: 0;
+    text-align: center;
+    margin-bottom: 10px;
+    flex-grow: 1;
+}
+
+.modal{
+    background-color: rgba(0,0,0,0.5);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    display: none;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+}
+
+.close-modal{
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+#modalFullDesc{
+    line-height: 1.6;
+    color: #333 !important;
+    white-space: pre-wrap;
+}
+
+.modal[style*="display:none"]{
+    display: none !important;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+#suggestModal{
+    display: none;
+}
+
+/*Modal for Suggesting new Item*/
+.formTitle{
+    text-align: center;
+    font-weight: bolder;
+}
+
+.form-group{
+    position: relative;
+    margin: 20px 0;
+
+}
+
+.form-group label{
+    position: absolute;
+    top: 5px;
+    color: #ccc;
+    transition: 0.3s;
+    pointer-events: none;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group textarea{
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    border-radius: 6px;
+    font-family: inherit;
+    background: transparent;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.form-group textarea.descArea{
+    height: 200px !important;
+    resize: none !important;
+    min-height: 200px;
+    display: block;
+}
+
+.btn-suggest{
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.close-suggest{
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.form-group input:focus+label,
+.form-group textarea:focus+label,
+.form-group input:valid+label,
+.form-group textarea:valid+label{
+   top: -15px;
+   color: #4f46e5;
+   font-size: 12px;
+}
+
+.form-group .underline{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: black;
+    transform: scaleX(0);
+    transition: 0.3s;
+}
+
+.form-group input:focus~.underline,
+.form-group input:valid~.underline,
+.form-group textarea:focus~.underline,
+.form-group textarea:valid~.underline{
+    transform: scaleY(1);
+    border-radius: 6px;
+}
+
+.form-file{
+    position: relative;
+    margin: 60px 0 40px 0;
+    width: 100%;
+}
+
+.form-file .file-label{
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    transition: border-color 0.4s ease-in;
+}
+
+.form-file.active .placeholder{
+    bottom: 30px;
+    color:#4f46e5;
+    font-size: 12px;
+    border-bottom-color:#4f46e5 ;
+}
+.form-file .placeholder{
+    position: absolute;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#file-name{
+    opacity: 0;
+    transform: translate(5px);
+    transition: all 0.4s ease 0.1s;
+    color: black;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.form-file .placeholder, #file-name{
+    position: absolute;
+    bottom: 5px;
+    transition: all 0.4s ease;
+}
+
+.form-file.active #file-name{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.form-file .underline{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: black;
+    transform: scaleX(0);
+    transition: 0.3s;
+    border-radius: 6px;
+}
+
+
+.form-file .file-label:hover~.underline{
+    transform: scaleY(1);
+}
+
+
+.form-file input[type="file"]{
+    display: none;
+}
+
+.btn-submit{
+    margin-top: 20px;
+    width: 100%;
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.btn-submit:hover{
+    background-color: #3730a3;
+}
+
+.optional{
+    text-align: center;
+    color: #ccc;
+    opacity: 1;
 }

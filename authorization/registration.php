@@ -27,12 +27,7 @@
     }
     
     $password_hashed = password_hash($password,PASSWORD_DEFAULT);
-
-    echo "<p>$first_name</p>";
-    echo "<p>$last_name</p>";
-    echo "<p>$email</p>";
-    echo "<p>$password_hashed</p>";
-
+    
     $sql = "INSERT INTO accounts (USER_FIRST_NAME,USER_LAST_NAME,USER_EMAIL,USER_PASSWORD) VALUES (?,?,?,?)";
     $stmt = $conn->prepare($sql);
 

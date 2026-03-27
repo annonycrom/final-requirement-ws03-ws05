@@ -14,9 +14,11 @@
     if($_SERVER['REQUEST_METHOD'] ===  'POST'){
         $name = validProd($_POST['item_name']) ?? '';
         $desc = validProd($_POST['item_description']) ?? '';
+        $image = 'default.jpg';
         if (!$name) $errors['name'] = "Product Name cannot be empty.";
         if (!$desc) $errors['desc'] = "Product Description cannot be empty.";
-        
+        if (!$image) $errors['image'] = "Invalid Image format.";
+
         if(empty($errors)){
             
             $user_id = $_SESSION['user_id'];
@@ -42,22 +44,3 @@
         
     }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2>Suggest new product</h2>
-    <form action="suggest-item.php" method="post">
-        <input type="text" name="item_name" id="item_name" placeholder = "Product Name" required>
-        <?php if (isset($errors['name'])) echo"<p>".$errors['name']."</p>" ?>
-        <textarea name="item_description" id="item_description" placeholder ="Describe the product..."  required></textarea>
-        <?php if (isset($errors['desc'])) echo"<p>".$errors['desc']."</p>" ?>
-        <input type="submit" value="Submit">
-    </form>
-</body>
-</html>
