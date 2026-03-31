@@ -21,10 +21,10 @@
         $result = $stmt->get_result();
 
     if (!$user = $result->fetch_assoc()){
-        die("No account found.") ;   
+        die("Invalid Credentials") ;   
     }
     if(!password_verify($password,$user['USER_PASSWORD'])){
-        die ("Invalid password.");    
+        die ("Invalid Credentials");    
     }
 
     if($user['USER_STATUS'] !== 'Active'){

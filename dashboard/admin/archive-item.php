@@ -26,6 +26,19 @@
         die('Execution Error: '.$stmt->error);
     }
 
-    echo "<script>alert('Item Successfuly Archive'); window.location = 'admin-dashboard.php';</script>";
+    if($stmt->affected_rows > 0){
+       $response = [
+           'status' => 'success',
+           'message' => 'Item archived successfully.'
+       ];
+    } else {
+        $response = [
+            'status' => 'error',
+            'message' => 'No item found with the provided ID.'
+        ];
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
     exit;
 ?>

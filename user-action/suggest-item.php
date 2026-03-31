@@ -11,10 +11,10 @@
         }
 
         $errors = [];
-    if($_SERVER['REQUEST_METHOD'] ===  'POST'){
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $name = validProd($_POST['item_name']) ?? '';
         $desc = validProd($_POST['item_description']) ?? '';
-        $image = 'default.jpg';
+        $image = 'default.png';
         if (!$name) $errors['name'] = "Product Name cannot be empty.";
         if (!$desc) $errors['desc'] = "Product Description cannot be empty.";
         if (!$image) $errors['image'] = "Invalid Image format.";

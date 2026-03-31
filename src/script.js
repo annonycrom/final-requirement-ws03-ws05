@@ -9,13 +9,15 @@ document.addEventListener('DOMContentLoaded', () =>{
 
     document.querySelectorAll('.view-details').forEach(button =>{
         button.addEventListener('click', ()=>{
-            modalTitle.innerText = button.getAttribute('data-title');
-            modalDesc.innerText = button.getAttribute('data-desc');
-
-            modal.style.display = "flex";
-        });
+            if(modalTitle && modalDesc){
+                modalTitle.innerText = button.getAttribute('data-title');
+                modalDesc.innerText = button.getAttribute('data-desc');
+                modal.style.display = "flex";
+            }
+        }); 
+    });
         
-        if(suggestModal){
+        if(openSuggestModal && suggestModal){
             openSuggestModal.addEventListener('click', () =>{
                 suggestModal.style.display ="flex";
             });
@@ -34,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () =>{
                 suggestModal.style.display = "none";
             }
         }   
-    });
 
     document.getElementById('image').onchange = function (){
         const container = document.querySelector('.form-file');

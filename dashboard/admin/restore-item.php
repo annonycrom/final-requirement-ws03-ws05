@@ -24,8 +24,19 @@
     if(!$stmt->execute()){
         die('Execution Error: '.$stmt->error);
     }
+    if($stmt->affected_rows > 0){
+       $response = [
+           'status' => 'success',
+           'message' => 'Item restored successfully.'
+       ];
+    } else {
+        $response = [
+            'status' => 'error',
+            'message' => 'No item found with the provided ID.'
+        ];
+    }
 
-
-    echo "<script>alert('Item successfuly restored to inventory'); window.location = 'admin-dashboard.php';</script>";
+    header('Content-Type: application/json');
+    echo json_encode($response);
     exit;
 ?>

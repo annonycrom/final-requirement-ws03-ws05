@@ -15,16 +15,22 @@
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i",$decoded_id);
 
+        header('Content-Type: application/json');
         if($stmt->execute()){
 
              if ($stmt->affected_rows > 0) {
-                echo "<script>alert('Item Approved Successfully!'); window.location = 'admin-dashboard.php';</script>";
+                $response = [
+                    'status' => 'success',
+                    'message' => 'Item approved successfully.'
+                ];
             } else {
-                echo "<script>alert('No changes made. Item might already be approved.'); window.location = 'admin-dashboard.php';</script>";
+                $response = [
+                    'status' => 'error',
+                    'message' => 'No item found with the provided ID.'
+                ];
             }
+            echo json_encode($response);
             exit;
         }
-    } else {
-        die("Invalid Item ID. Decoded value: " . htmlspecialchars($decoded_id));
     }
 ?>
