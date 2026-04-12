@@ -37,7 +37,7 @@
                                 ?>
                                 <tr>
                                     <td>
-                                        <input type="text" value="<?php echo htmlspecialchars($item['ITEM_NAME']); ?>" readonly class="edit-input name-in">
+                                        <input type="text" name="name" value="<?php echo htmlspecialchars($item['ITEM_NAME']); ?>" readonly class="edit-input name-in">
                                     </td>
                                     <td>
                                         <span class="status-pill <?php echo htmlspecialchars($item['ITEM_STATUS']); ?>">
@@ -45,13 +45,24 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <textarea readonly class="edit-input desc-in"><?php echo htmlspecialchars($item['ITEM_DESCRIPTION']); ?></textarea>
+                                        <textarea readonly name="desc" class="edit-input desc-in"><?php echo htmlspecialchars($item['ITEM_DESCRIPTION']); ?></textarea>
                                     </td>
                                     <td>
-                                        <input type="text" value="₱ <?php echo htmlspecialchars($item['ITEM_PRICE']); ?>" readonly class="edit-input price-in">
+                                        <p>
+                                           ₱<input type="number" steps="0.01" name="price" value="<?php echo htmlspecialchars($item['ITEM_PRICE']); ?>" readonly class="edit-input price-in">
+                                        </p>
                                     </td>
                                     <td>
-                                        <img src="../../uploads/<?php echo htmlspecialchars($item['ITEM_IMAGE']); ?>" alt="Item Image" class="table-img">
+                                        <div class="image-wrapper">
+                                            <img src="../../uploads/<?php echo htmlspecialchars($item['ITEM_IMAGE']); ?>" alt="Item Image" class="table-img item-image-display">
+                                            <?php if($mode !== 'archive' && $mode !== 'pending'):?>
+                                                <label for="file<?php echo $item['ITEM_ID'];?>" class="file-label hidden">
+                                                    <span class="placeholder">&#128462; Upload Image</span>
+                                                    <span class="file-name"></span>
+                                                </label>
+                                                <input type="file" name="file" class="edit-image-input hidden" id="file<?php echo $item['ITEM_ID'];?>">
+                                            <?php endif; ?>
+                                        </div>
                                     </td>
                                     <td class="action-cells">
                                         <?php if($mode === 'archive'): ?>
@@ -63,6 +74,7 @@
                                             <a href="javascript:void(0)" onclick="handleViewCancel(this)" class="btn btn-view-cancel">View</a>
                                         <?php else: ?>
                                             <a href="javascript:void(0)" onclick = "toggleEdit(this)" class="btn btn-approve" id="prod-action" data-id="<?php echo urlencode(base64_encode($item['ITEM_ID'])); ?>">Edit</a>
+                                            <a href="javascript:void(0)" class="btn btn-archive" onclick="performAction('archive-item.php?id=<?php echo $hashed_id; ?>', this)">Archive</a>
                                             <a href="javascript:void(0)" onclick = "handleViewCancel(this)" class = "btn btn-view-cancel">View</a>
                                         <?php endif; ?>
                                     </td>

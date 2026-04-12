@@ -55,6 +55,12 @@
         const input =row.querySelectorAll('.edit-input');
         const hashedId = btn.getAttribute('data-id');
         const viewBtn = row.querySelector(".btn-view-cancel");
+        const displayImg = row.querySelector('.item-image-display');
+        const fileInput = row.querySelector('.edit-image-input');
+        const label = row.querySelector('.file-label');
+        const fileNameDisplay = row.querySelector('.file-name');
+        const placeholder = row.querySelector('.placeholder');
+
         // Swithching between Edit and Save mode
         if(btn.textContent === "Edit"){
             input.forEach(input=>{
@@ -71,20 +77,37 @@
                 this.style.height = this.scrollHeight + "px";
             }
 
+            if(label){
+                displayImg.classList.add('hidden');
+                fileInput.classList.remove('hidden');
+                label.classList.remove('hidden');
+            }
+
+            fileInput.onchange = function(){
+                if(this.files && this.files.length > 0){
+                    fileNameDisplay.textContent = "Selected: "+ this.files[0].name;
+                    placeholder.innerHTML = "&#128505; Image Attached";
+                }
+            }
+
+
             btn.textContent = "Save";
             viewBtn.textContent = "Cancel";
-        }else{
-            const data = {
-                id: hashedId,
-                name: row.querySelector('.name-in').value,
-                desc: row.querySelector('.desc-in').value,
-                price: row.querySelector('.price-in').value
-            };
 
+        }else{
+            const formData = new FormData();
+            formData.append('id', hashedId);
+            formData.append('name', row.querySelector('.name-in').value);
+            formData.append('desc', row.querySelector('.desc-in').value);
+            formData.append('price', row.querySelector('.price-in').value);
+            
+            // responsible for images
+            if(fileInput && fileInput.files.length > 0){
+                formData.append('file', fileInput.files[0]);
+            }
             fetch('edit-item.php',{
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
+                body: formData
             })
 
             .then(response => response.json())
@@ -100,7 +123,12 @@
             descInput.oninput = null;
             descInput.style.height = "35px";
             descInput.setAttribute('readonly', true);
-        
+            
+            if(fileInput){
+                displayImg.classList.remove('hidden');
+                fileInput.classList.add('hidden');
+            }
+
             btn.textContent ="Edit";
             viewBtn.textContent = "View";
             })
@@ -116,6 +144,11 @@
         const descInput = row.querySelector('.desc-in');
         const input =row.querySelectorAll('.edit-input');
         const editBtn = row.querySelector('.btn-approve');
+        const displayImg = row.querySelector('.item-image-display');
+        const fileInput = row.querySelector('.edit-image-input');
+        const label = row.querySelector('.file-label');
+        const fileNameDisplay = row.querySelector('.file-name');
+        const placeholder = row.querySelector('.placeholder');
         
         if(btn.textContent === "Cancel"){
             input.forEach(input =>{
@@ -123,7 +156,18 @@
                 input.readOnly = true;
                 input.classList.remove('editable');
             });
+            if(label){
+                label.classList.add('hidden');
+                displayImg.classList.remove('hidden');
+                placeholder.innerHTML = "&#128462; Upload Image";
+                fileNameDisplay.textContent = "";
+            }
 
+            if(fileInput){
+                fileInput.classList.add('hidden');
+                fileInput.value = "";
+                displayImg.classList.remove('hidden');
+            }
 
             descInput.oninput = null;
             descInput.style.height = "35px";

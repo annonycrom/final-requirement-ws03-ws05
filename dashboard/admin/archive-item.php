@@ -1,6 +1,7 @@
 <?php
     session_start();
     require('../../db-connect.php');
+    require('../../logs.php');
 
     if(!isset($_SESSION['logged_in']) || $_SESSION['user_role'] == 'Regular'){
         die('Access denied.');
@@ -27,7 +28,14 @@
     }
 
     if($stmt->affected_rows > 0){
-       $response = [
+
+        $performer_id = $_SESSION['user_id'];
+        $action = "Item Archived";
+        $details = "Admin archive Item ID:". $decoded_id;
+
+        record_activity($conn, $performer_id, $action, $details);
+
+        $response = [
            'status' => 'success',
            'message' => 'Item archived successfully.'
        ];
