@@ -2,7 +2,7 @@
     window.addEventListener('DOMContentLoaded', ()=>{
         const saved = localStorage.getItem('activeSection');
         if(saved){
-            document.querySelectorAll('.tab-content').forEach(sec=>sec.classList.add('.hidden'));
+            document.querySelectorAll('.tab-content').forEach(sec=>sec.classList.add('hidden'));
             document.getElementById(saved).classList.remove('hidden');
 
             document.querySelectorAll('.nav-btn').forEach(btn=>btn.classList.remove('active'));
@@ -38,4 +38,35 @@
             row.style.display = row.innerText.toLowerCase().includes(value) ? '': 'none';
         });
     });
+    });
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+        const adminSearch = document.getElementById('search');
+        const clearBtn = document.getElementById('clear-btn');
+        const tablerRows = document.querySelectorAll('#adminlist tbody tr');
+
+        if(adminSearch){
+            adminSearch.addEventListener('keyup', function(){
+                const query = this.value.toLowerCase();
+
+                tablerRows.forEach(row=> {
+                    
+                    const email = row.cells[0].textContent.toLowerCase();
+                    
+                    if(email.includes(query)){
+                        row.style.display = "";
+                    }else{
+                        row.style.display= "none";
+                    }
+                });
+            });
+        }
+
+        if(clearBtn){
+            clearBtn.addEventListener('click', () =>{
+                adminSearch.value = "";
+                tablerRows.forEach(row => row.style.display = "");
+            });
+        }
+
     });

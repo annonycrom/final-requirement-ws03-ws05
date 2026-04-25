@@ -48,9 +48,9 @@
                                         <textarea readonly name="desc" class="edit-input desc-in"><?php echo htmlspecialchars($item['ITEM_DESCRIPTION']); ?></textarea>
                                     </td>
                                     <td>
-                                        <p>
+                                        <span style="display:ruby-text;">
                                            ₱<input type="number" steps="0.01" name="price" value="<?php echo htmlspecialchars($item['ITEM_PRICE']); ?>" readonly class="edit-input price-in">
-                                        </p>
+                                        </span>
                                     </td>
                                     <td>
                                         <div class="image-wrapper">

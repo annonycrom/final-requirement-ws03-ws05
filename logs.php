@@ -11,7 +11,7 @@
     }
 
     function get_all_logs($conn){
-        $sql = "SELECT l.*, a.USER_EMAIL FROM activity_logs l LEFT JOIN accounts a ON l.performer_id = a.USER_ROLE ORDER BY l.created_at DESC LIMIT 50";
+        $sql = "SELECT l.*, a.USER_EMAIL FROM activity_logs l LEFT JOIN accounts a ON l.performer_id = a.USER_ID ORDER BY l.created_at DESC LIMIT 50";
         $result = $conn->query($sql);
 
         if(!$result){

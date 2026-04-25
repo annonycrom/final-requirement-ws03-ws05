@@ -494,15 +494,9 @@ textarea.edit-input.editable{
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-#suggestModal{
-    display: none;
-}
-
 /* dashboard section design */
 
 #storeManagement{
-    padding: 2rem;
-    max-width: 1400px;
     margin: 0 auto;
 }
 
