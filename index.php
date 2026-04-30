@@ -39,6 +39,7 @@
             <a href="dashboard/admin/admin-dashboard.php">Admin</a>
         <?php elseif (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'Super Admin'):?>
             <a href="dashboard/super-admin/super-admin-dashboard.php">Super Admin</a>
+            <a href="dashboard/admin/admin-dashboard.php">Admin</a>
          <?php endif; ?>
         <?php if (!isset($_SESSION['logged_in'])): ?>
             <a href="authorization/auth.php?mode=login">Log in</a>
@@ -145,7 +146,7 @@
                         <span id="file-name"></span>
                     </label>
                     <span class="underline"></span>
-                    <input type="file" name="item_image" id="image" accept="image/*" required>
+                    <input type="file" name="item_image" id="image" accept="image/*">
                     <?php if (isset($errors['image'])) echo"<p>".$errors['image']."</p>" ?>
                 </div>
                 <p class="optional">&#9432; Image is optional</p>

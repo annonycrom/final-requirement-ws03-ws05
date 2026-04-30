@@ -31,7 +31,7 @@
 
         $performer_id = $_SESSION['user_id'];
         $action = "Item Archived";
-        $details = "Admin archive Item ID:". $decoded_id;
+        $details = "Admin archive Item ID:". $decode_id;
 
         record_activity($conn, $performer_id, $action, $details);
 

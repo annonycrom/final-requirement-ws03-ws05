@@ -2,13 +2,13 @@
     session_start();
     require('../../db-connect.php');
 
-    if(!isset($_SESSION['logged_in']) || $_SESSION['user_role'] !== 'Admin'){
+    if(!isset($_SESSION['logged_in']) || $_SESSION['user_role'] === 'Regular' ){
         header('Location: ../../index.php?error=unauthorized');
         exit;
     }
 
     $sql = "SELECT ITEM_ID, ITEM_NAME,ITEM_DESCRIPTION, ITEM_PRICE, ITEM_IMAGE, ITEM_STATUS FROM items";
-    $res_update = $conn->query($sql);
+    $res_update = $conn->query($sql. " WHERE ITEM_STATUS != 'Archived' AND ITEM_STATUS != 'Pending'");
     $res_archive = $conn->query($sql . " WHERE ITEM_STATUS = 'Archived'");
     $res_pending = $conn->query($sql . " WHERE ITEM_STATUS = 'Pending'");
 
@@ -55,28 +55,24 @@
                                     <td>
                                         <div class="image-wrapper">
                                             <img src="../../uploads/<?php echo htmlspecialchars($item['ITEM_IMAGE']); ?>" alt="Item Image" class="table-img item-image-display">
-                                            <?php if($mode !== 'archive' && $mode !== 'pending'):?>
-                                                <label for="file<?php echo $item['ITEM_ID'];?>" class="file-label hidden">
-                                                    <span class="placeholder">&#128462; Upload Image</span>
-                                                    <span class="file-name"></span>
-                                                </label>
-                                                <input type="file" name="file" class="edit-image-input hidden" id="file<?php echo $item['ITEM_ID'];?>">
-                                            <?php endif; ?>
+                                            <label for="file<?php echo $item['ITEM_ID'];?>" class="file-label hidden">
+                                                <span class="placeholder">&#128462; Upload Image</span>
+                                                <span class="file-name"></span>
+                                            </label>
+                                            <input type="file" name="file" class="edit-image-input hidden" id="file<?php echo $item['ITEM_ID'];?>">
                                         </div>
                                     </td>
                                     <td class="action-cells">
+                                        <a href="javascript:void(0)" onclick = "toggleEdit(this)" class="btn btn-approve" id="prod-action" data-id="<?php echo urlencode(base64_encode($item['ITEM_ID'])); ?>">Edit</a>
                                         <?php if($mode === 'archive'): ?>
                                             <a href="javascript:void(0)" class="btn btn-approve" onclick="performAction('restore-item.php?id=<?php echo $hashed_id; ?>', this)">Restore</a>
-                                            <a href="javascript:void(0)" onclick = "handleViewCancel(this)" class = "btn btn-view-cancel">View</a>
                                         <?php elseif($mode === 'pending'): ?>
                                             <a href="javascript:void(0)" class="btn btn-approve" onclick="performAction('approve-item.php?id=<?php echo $hashed_id; ?>', this)">Approve</a>
                                             <a href="javascript:void(0)" class="btn btn-archive" onclick="performAction('archive-item.php?id=<?php echo $hashed_id; ?>', this)">Archive</a>
-                                            <a href="javascript:void(0)" onclick="handleViewCancel(this)" class="btn btn-view-cancel">View</a>
                                         <?php else: ?>
-                                            <a href="javascript:void(0)" onclick = "toggleEdit(this)" class="btn btn-approve" id="prod-action" data-id="<?php echo urlencode(base64_encode($item['ITEM_ID'])); ?>">Edit</a>
                                             <a href="javascript:void(0)" class="btn btn-archive" onclick="performAction('archive-item.php?id=<?php echo $hashed_id; ?>', this)">Archive</a>
+                                            <?php endif; ?>
                                             <a href="javascript:void(0)" onclick = "handleViewCancel(this)" class = "btn btn-view-cancel">View</a>
-                                        <?php endif; ?>
                                     </td>
                                 </tr>
                                 <?php endwhile;?>
@@ -117,6 +113,9 @@
                 <button onclick="showSection(event, 'archiveSection')" class="nav-btn">Archive Item</button>
                 <button onclick="showSection(event, 'userSection')" class="nav-btn">Manage Users</button>
                 <hr>
+                <?php if($_SESSION['user_role'] === "Super Admin"):?>
+                    <a href="../super-admin/super-admin-dashboard.php" class="nav-link">Super Admin</a>
+                <?php endif;?>
                 <a href="../../index.php" class="nav-link">Back to Store</a>
                 <a href="../../index.php?action=logout" class="nav-link logout">Logout</a>
             </nav>
@@ -129,7 +128,7 @@
             <!-- ARCHIVE SECTION -->
             <?php renderTable('archiveSection', 'Archived Items', $res_archive, 'No archived items found.', 'archive'); ?>
             <!-- UPDATE SECTION -->
-             <?php renderTable('updateSection', 'All Products', $res_update, 'No items found.', 'update'); ?>
+             <?php renderTable('updateSection', 'Active Products', $res_update, 'No items found.', 'update'); ?>
             <!-- USER SECTION -->
             <div id="userSection" class="tab-content hidden">
                 <div class="content-header">

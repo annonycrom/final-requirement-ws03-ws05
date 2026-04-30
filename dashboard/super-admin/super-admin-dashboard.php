@@ -30,9 +30,11 @@
                 <p>Control Panel</p>
             </div>
             <nav>
-                <a href="javascript:void(0)" onclick="showSection(event, 'dashboard-container')" class="nav-btn active">Dashboard</a>
+                <a href="javascript:void(0)" onclick="showSection(event, 'new-admin-container')" class="nav-btn active">Add New Admin</a>
                 <a href="javascript:void(0)" onclick="showSection(event, 'logs-container')" class="nav-btn">Activity logs</a>
-                <a href="javascript:void(0)" onclick="showSection(event, 'new-admin-container')" class="nav-btn">Add New Admin</a>
+                <hr>
+                <a href="../admin/admin-dashboard.php" class="nav-link">Admin Dashboard</a>
+                <a href="../../index.php" class="nav-link">Back to Store</a>
                 <a href="../../index.php?action=logout" class="nav-btn">Logout</a>
             </nav>
         </aside>

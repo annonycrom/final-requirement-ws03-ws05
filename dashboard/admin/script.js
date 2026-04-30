@@ -23,12 +23,12 @@
 
             if(data.status === "success" && btnElement){
                 const row = btnElement.closest('tr');
-                row.style.opacity = "0";
-                setTimeout(() => row.remove(), 300);
+                location.reload();
             }
         })
         .catch(err => showToast("An error occurred. Please try again.", "error"));
     }
+   
     // taost notification function
     function showToast(message, type){  
         const toast = document.getElementById("toast");
@@ -36,16 +36,28 @@
         toast.className = `toast show ${type}`;
         setTimeout (() => toast.classList.remove("show"), 3000);
     }
+
+    
     // restore last active section on page load
 
     document.addEventListener('DOMContentLoaded', () => {
         const savedSection = localStorage.getItem('activeSection');
+
+        const msg = sessionStorage.getItem('toastMsg');
+        const status = sessionStorage.getItem('toastStatus');
+        if(msg){
+            showToast(msg, status);
+            sessionStorage.removeItem('toastMsg');
+            sessionStorage.removeItem('toastStatus');
+        }
+        
         if(savedSection){
-            const targetBtn = document.querySelector(`a[onclick*=${savedSection}]`);
+            const targetBtn = document.querySelector(`button[onclick*=${savedSection}]`);
             if (targetBtn){
                 targetBtn.click();
             }
         }
+
     });
 
     // Toggle Edit and Save actions for items in the update section
@@ -136,6 +148,7 @@
             .catch(err => {
                 showToast("An error occurred. Please try again.", "error")
             });
+            location.reload();
         }
     }
 
