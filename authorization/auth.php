@@ -35,10 +35,24 @@
                 <label for="first_name">Password</label>
                 <span class="underline"></span>
             </div>
+            <div class="remember-me-section" id="remember-me-section">
+                <input type="checkbox" name="remember-me" id="remember-me">
+                <label for="remember-me">Remember me</label>
+            </div>
+            <!-- remember me -->
+            <p class="invalid <?php echo (isset($_GET['error'])) ? 'show' : ''; ?>" id="invalid">
+                <?php 
+                    if (isset($_GET['error']) && $_GET['error'] == 'Archived') {
+                        echo "Account is inactive.";
+                    } else {
+                        echo "Invalid Credentials.";
+                    }
+                ?>
+            </p>
 
             <input type="submit" id="submit" value="Register" >
             <p>
-                <a href="#" id="verify">Already have account.</a>
+                <a href="javascript:void(0)" id="verify">Already have account.</a>
             </p>
         </form>
     </div>
@@ -53,7 +67,7 @@
         const formTitle = document.getElementById('formTitle');
         const firstname_input = document.getElementById('firstname_input');
         const lastname_input = document.getElementById('lastname_input');
-
+        const rememberMe = document.getElementById('remember-me-section');
         verify.addEventListener('click', (event)=>{
             event.preventDefault();
 
@@ -67,6 +81,7 @@
                 last_name.disabled = true;
                 firstname_input.classList.add('hidden');
                 lastname_input.classList.add('hidden');
+                rememberMe.classList.remove('hidden');
             }else{
                 form.action = 'registration.php';
                 formTitle.textContent = 'Register';
@@ -77,12 +92,26 @@
                 last_name.disabled = false;
                 firstname_input.classList.remove("hidden");
                 lastname_input.classList.remove("hidden");
+                rememberMe.classList.add('hidden');
             }
         });
         const urlParam = new URLSearchParams(window.location.search);
         if (urlParam.get('mode') === 'login'){
             verify.click();
         }
+
+        const errormessage = document.getElementById('invalid');
+        const inputs = form.querySelectorAll('input');
+
+        inputs.forEach(input => {
+            input.addEventListener('input', ()=>{
+                errormessage.classList.remove('show');
+            });
+            input.addEventListener('click',()=>{
+                errormessage.classList.remove('show');
+            })
+
+        });
     });
 </script>
 </html>

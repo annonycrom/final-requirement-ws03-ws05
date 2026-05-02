@@ -4,9 +4,23 @@
 
     header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
     header("Pragma: no-cache");
-
+    // logout
     if (isset($_GET['action']) && $_GET['action'] === 'logout'){
-        $_SESSION = array();
+
+        // remember me
+        if(isset($_SESSION['user_id'])){
+            $user_id = $_SESSION['user_id'];
+            $sql = "UPDATE accounts SET REMEMBER_TOKEN = NULL WHERE USER_ID = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+        }
+
+        if(isset($_COOKIE['remember_user'])){
+            setcookie('remember_user',"",time() - 3600, "/", "", false, true);
+        }
+
+        $_SESSION = array();    
         session_destroy();
         header('Location: index.php');
         exit;
@@ -34,6 +48,20 @@
 <body>
     <header>
     <h1>Welcome</h1>
+    
+    <?php if (isset($_GET['status']) && $_GET['status'] === 'success'): ?>
+        <div id="welcome-toast" class="toast-success">
+            Registration successful! Welcome to your dashboard.
+        </div>
+        <script>
+            // Make the message disappear after 4 seconds
+            setTimeout(() => {
+                const toast = document.getElementById('welcome-toast');
+                if(toast) toast.style.display = 'none';
+            }, 4000);
+        </script>
+    <?php endif; ?>
+
     <div class="navbar">
         <?php if(isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'Admin'):?>
             <a href="dashboard/admin/admin-dashboard.php">Admin</a>
@@ -51,7 +79,9 @@
             <a href="index.php?action=logout">Logout</a>
         <?php endif; ?>
     </div>
+
     </header>
+
     <section>
         <form action="index.php" method="get">
             <input type="text" name="search" id="search" placeholder = "Search Item" value = "<?php echo htmlspecialchars($search); ?>">

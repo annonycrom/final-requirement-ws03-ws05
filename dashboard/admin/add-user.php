@@ -53,32 +53,6 @@
     <title>Add User</title>
 </head>
 <body>
-    <h2>Add New User</h2>
-    <form action="add-admin.php" method="post">
-        <input type="text" name="fName" id="fName" placeholder = "Add Fistname" value = "<?php echo htmlspecialchars($fName ?? ''); ?>" required>
-        <?php if(isset($errors['fName'])) :?>
-            <p><?php echo $errors['fName'];?></p>
-        <?php endif;?>
-        
-
-        <input type="text" name="lName" id="lName" placeholder = "Add Lastname" value = "<?php echo htmlspecialchars($lName ?? ''); ?>" required>
-        <?php if(isset($errors['lName'])) :?>
-            <p><?php echo $errors['lName'];?></p>
-        <?php endif;?>
-
-
-        <input type="email" name="email" id="email" placeholder = "Add Email" value = "<?php echo htmlspecialchars($email ?? ''); ?>" required>
-        <?php if(isset($errors['email'])) :?>
-            <p><?php echo $errors['email'];?></p>
-        <?php endif;?>
-
-        
-        <input type="password" name="password" id="password" placeholder = "Temporary Password" required>
-        <?php if(isset($errors['password'])) :?>
-            <p><?php echo $errors['password'];?></p>
-        <?php endif;?>
-        <input type="submit" value="Create User">
-        <a href="admin-dashboard.php">Back</a>
-    </form>
+    
 </body>
 </html>

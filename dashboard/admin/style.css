@@ -76,7 +76,7 @@ body,html{
     width: 100%;
     flex-grow: 1;
     overflow-y: auto;
-    padding: 40px;
+    padding: 10px;
 }
 
 .tab-content{
@@ -84,7 +84,7 @@ body,html{
     margin: 0px auto;
 }
 
-.tab-container{
+.table-container{
     background: white;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
@@ -182,12 +182,21 @@ body,html{
     letter-spacing: 0.1rem;
     border: 1px solid transparent;
  }
-
  .btn-approve{
-    background: #dcfce7;
-    color: #166534;
-    margin-right: 5px;
- }
+     background: #dcfce7;
+     color: #166534;
+     margin-right: 5px;
+    }
+    
+.btn-edit{
+    background: #90D5FF;
+    color: #0047AB;
+}
+
+.btn-edit:hover{
+    background: #0056B3;
+    color: white;
+}
 
  .btn-archive{
     background: #fee2e2;
@@ -590,4 +599,133 @@ textarea.edit-input.editable{
 @keyframes fadeout {
     from {bottom: 30px; opacity: 1;}
     to {bottom: 0; opacity: 0;}
+}
+
+
+/* usermangement */
+.usermangement{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    min-height: 0 !important;
+}
+
+.tab-content .usermangement{
+    height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.content-header,
+.usermangement form,
+.usermangement .search{
+    flex-shrink: 0;
+}
+
+.usermangement .admin-table thead th{
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 10;
+    box-shadow: 0 2px 2px -1px rgba(0,0,0,0.1);
+}
+.usermangement .table-container{
+    flex-grow: 1;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.usermangement .content-header{
+    margin-bottom: 30px;
+}
+
+.usermangement form,
+.usermangement .search{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+.usermangement input[type="text"],
+.usermangement input[type="email"],
+.usermangement input[type="password"]{
+    padding: 10px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    flex: 1;
+    min-width: 150px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.usermangement input:focus{
+    border-color: #007bff;
+}
+
+.usermangement input[type="submit"],
+.usermangement input[type="button"]{
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.usermangement input[type="button"]{
+    background-color: #6c757d;
+}
+
+.usermangement input[type="submit"]:hover,
+.usermangement input[type="button"]:hover{
+    opacity: 0.9;
+}
+
+.usermangement p {
+    color: #dc3545;
+    font-size: 12px;
+    margin: -5px 0 5px 5px;
+    width: 100%;
+}
+
+.usermangement .admin-table {
+   flex: 1;
+   width: 100%;
+}
+
+.usermangement .admin-table th:nth-child(1){text-align: left;}
+.usermangement .admin-table th:nth-child(2){text-align: left;}
+.usermangement .admin-table th:nth-child(3){text-align: left; z-index: 9999;}
+
+.usermangement th:nth-child(1), 
+.usermangement td:nth-child(1) {
+    width: 50%;
+}
+
+.usermangement th:nth-child(2), 
+.usermangement td:nth-child(2) {
+    width: 25%; 
+}
+
+.usermangement th:nth-child(3), 
+.usermangement td:nth-child(3) {
+    width: 25%; 
+    text-align: center;
+}
+
+.usermangement .action-cells, 
+.usermangement td:last-child {
+    white-space: nowrap;
+    text-align: right;
 }

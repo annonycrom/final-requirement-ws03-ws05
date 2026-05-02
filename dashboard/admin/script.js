@@ -156,7 +156,7 @@
         const row = btn.closest('tr');
         const descInput = row.querySelector('.desc-in');
         const input =row.querySelectorAll('.edit-input');
-        const editBtn = row.querySelector('.btn-approve');
+        const editBtn = row.querySelector('.btn-edit');
         const displayImg = row.querySelector('.item-image-display');
         const fileInput = row.querySelector('.edit-image-input');
         const label = row.querySelector('.file-label');

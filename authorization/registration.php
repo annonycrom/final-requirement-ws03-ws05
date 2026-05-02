@@ -35,12 +35,15 @@
         $stmt->bind_param("ssss",$first_name,$last_name,$email,$password_hashed);
 
         if($stmt->execute()){
-            echo "Registration Success.";
+            header("Location: ../index.php?status=success");
+            exit;
         }else{
             echo "Error ". $conn->error;
+            exit;
         }
         $stmt->close();
     }else{
         echo"Database Error.". $conn->error;
+        exit;
     }
 ?>

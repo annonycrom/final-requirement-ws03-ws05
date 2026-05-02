@@ -63,7 +63,7 @@
                                         </div>
                                     </td>
                                     <td class="action-cells">
-                                        <a href="javascript:void(0)" onclick = "toggleEdit(this)" class="btn btn-approve" id="prod-action" data-id="<?php echo urlencode(base64_encode($item['ITEM_ID'])); ?>">Edit</a>
+                                        <a href="javascript:void(0)" onclick = "toggleEdit(this)" class="btn btn-edit" id="prod-action" data-id="<?php echo urlencode(base64_encode($item['ITEM_ID'])); ?>">Edit</a>
                                         <?php if($mode === 'archive'): ?>
                                             <a href="javascript:void(0)" class="btn btn-approve" onclick="performAction('restore-item.php?id=<?php echo $hashed_id; ?>', this)">Restore</a>
                                         <?php elseif($mode === 'pending'): ?>
@@ -129,10 +129,45 @@
             <?php renderTable('archiveSection', 'Archived Items', $res_archive, 'No archived items found.', 'archive'); ?>
             <!-- UPDATE SECTION -->
              <?php renderTable('updateSection', 'Active Products', $res_update, 'No items found.', 'update'); ?>
-            <!-- USER SECTION -->
-            <div id="userSection" class="tab-content hidden">
+            
+             <!-- USER SECTION -->
+            <div id="userSection" class="tab-content usermangement hidden">
                 <div class="content-header">
                     <h2>Manage Users</h2>
+
+                    <h2>Add New User</h2>
+
+                    <form action="add-admin.php" method="post">
+                        <input type="text" name="fName" id="fName" placeholder = "Add Fistname" value = "<?php echo htmlspecialchars($fName ?? ''); ?>" required>
+                        <?php if(isset($errors['fName'])) :?>
+                            <p><?php echo $errors['fName'];?></p>
+                        <?php endif;?>
+                        
+
+                        <input type="text" name="lName" id="lName" placeholder = "Add Lastname" value = "<?php echo htmlspecialchars($lName ?? ''); ?>" required>
+                        <?php if(isset($errors['lName'])) :?>
+                            <p><?php echo $errors['lName'];?></p>
+                        <?php endif;?>
+
+
+                        <input type="email" name="email" id="email" placeholder = "Add Email" value = "<?php echo htmlspecialchars($email ?? ''); ?>" required>
+                        <?php if(isset($errors['email'])) :?>
+                            <p><?php echo $errors['email'];?></p>
+                        <?php endif;?>
+
+                        
+                        <input type="password" name="password" id="password" placeholder = "Temporary Password" required>
+                        <?php if(isset($errors['password'])) :?>
+                            <p><?php echo $errors['password'];?></p>
+                        <?php endif;?>
+                        <input type="submit" value="Create User">
+                    </form>
+
+                    <div class="search">
+                        <label for="search">Search User</label>
+                        <input type="text" name="search" id="search">
+                        <input type="button" value="Clear">
+                    </div>
                 </div>
                 <div class="table-container">
                     <table class="admin-table">
@@ -145,8 +180,13 @@
                         </thead>
                         <tbody>
                             <?php
-                                $sql_users = "SELECT USER_ID, USER_EMAIL, USER_ROLE FROM users";
+                                $sql_users = "SELECT USER_ID, USER_EMAIL, USER_ROLE FROM accounts WHERE USER_ROLE = 'Regular'";
                                 $res_users = $conn->query($sql_users);
+
+                                // if (!$res_users) {
+                                //     die("Query Failed: " . $conn->error);
+                                // }
+                                // echo "Rows found: " . $res_users->num_rows;
 
                                 if($res_users && $res_users->num_rows > 0):
                                     while($user = $res_users->fetch_assoc()):

@@ -119,3 +119,32 @@ p{
     color: #4f46e5;
     text-decoration: underline;
 }
+/* invalid credentials */
+.invalid {
+    color: red;
+    display: none;
+    margin-bottom: 10px;
+}
+.invalid.show {
+    display: block;
+}
+
+/* remember me */
+
+.remember-me-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 15px 0;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.remember-me-section input {
+    cursor: pointer;
+    width: auto;
+}
+
+.hidden {
+    display: none !important;
+}
