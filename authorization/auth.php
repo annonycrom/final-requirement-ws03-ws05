@@ -1,6 +1,10 @@
 <?php
     session_start();
     $mode = $_GET['mode'] ?? '';
+
+    if(empty($_SESSION['csrf_token'])){
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +19,7 @@
     <div class="form-container">
         <h1 id="formTitle" class="formTitle">Register</h1>
         <form action="registration.php" method="post" id="authForm">
+            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'];?>">
             <div class="input_container" id="firstname_input">
                 <input type="text" name="first_name" id="first_name"  required>
                 <label for="first_name">Firstname</label>
