@@ -23,7 +23,6 @@
 
             if(data.status === "success" && btnElement){
                 const row = btnElement.closest('tr');
-                location.reload();
             }
         })
         .catch(err => showToast("An error occurred. Please try again.", "error"));
@@ -35,6 +34,9 @@
         toast.innerText = message;
         toast.className = `toast show ${type}`;
         setTimeout (() => toast.classList.remove("show"), 3000);
+        if(type === "success"){
+            setTimeout(() => {location.reload();}, 2500);
+        }
     }
 
     
@@ -148,7 +150,6 @@
             .catch(err => {
                 showToast("An error occurred. Please try again.", "error")
             });
-            location.reload();
         }
     }
 

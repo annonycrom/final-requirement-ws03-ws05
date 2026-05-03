@@ -80,10 +80,7 @@ nav a.active{
     width: 5px;
 }
 
-.table-wrapper::-webkit-scrollbar-thumb{
-    background: #cbd5f5;
-    border-radius: 10px;
-}
+
 
 
 .tab-content{
@@ -120,7 +117,7 @@ nav a.active{
 
 .admin-table th:nth-child(1){width: 50%;} /*email*/
 .admin-table th:nth-child(2){width: 20%;} /*role*/
-.admin-table th:nth-child(3){width: 30%; text-align: center;} /*actions*/
+.admin-table th:nth-child(3){width: 30%;} /*actions*/
 
 .admin-table td:first-child{
     font-weight: 600;

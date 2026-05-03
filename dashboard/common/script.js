@@ -1,5 +1,3 @@
-// toas
-
 // usermanagement section
     document.addEventListener('DOMContentLoaded', () => {
     // 1. Select both types of buttons

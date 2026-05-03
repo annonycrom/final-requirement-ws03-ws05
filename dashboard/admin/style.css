@@ -165,54 +165,7 @@ body,html{
     padding: 10px 0 !important;
 }
 
- .btn{
-    display: flex;
-    justify-content: center;
-    width: 100% !important;
-    max-width: 90px;
-    height: 30px;
-    text-align: center;
-    padding: 8px 0;
-    border-radius: 8px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    box-sizing: border-box;
-    letter-spacing: 0.1rem;
-    border: 1px solid transparent;
- }
- .btn-approve{
-     background: #dcfce7;
-     color: #166534;
-     margin-right: 5px;
-    }
-    
-.btn-edit{
-    background: #90D5FF;
-    color: #0047AB;
-}
-
-.btn-edit:hover{
-    background: #0056B3;
-    color: white;
-}
-
- .btn-archive{
-    background: #fee2e2;
-    color: #991b1b
- }
-
- .btn-approve:hover{
-    background: #16a34a;
-    color: white;
- }
-
- .btn-archive:hover{
-    background: #dc2626;
-    color: white;
- }
-
+ 
  .empty-box{
     text-align: center;
     padding: 50px;

@@ -1,3 +1,21 @@
+/* 1. Sets the width/height for ALL scrollbars */
+*::-webkit-scrollbar {
+    width: 10px;  /* Vertical scrollbars */
+    height: 10px; /* Horizontal scrollbars */
+}
+
+/* 2. Applies your specific thumb style globally */
+*::-webkit-scrollbar-thumb {
+    background: #cbd5f5;
+    border-radius: 10px;
+}
+
+/* 3. Optional: Style the track so it doesn't look empty */
+*::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
 body{
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
