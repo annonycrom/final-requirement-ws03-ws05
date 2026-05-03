@@ -6,8 +6,8 @@
     if(!isset($_SESSION['logged_in']) || $_SESSION['user_role'] !== 'Super Admin'){
         header('Location: ../../index.php?error=unauthorized');
     }
-    $sql = "SELECT USER_ID, USER_EMAIL, USER_ROLE FROM accounts WHERE USER_ROLE =  'Admin' AND USER_STATUS = 'Active'";
-    $result = $conn->query($sql);
+    $sql = "SELECT USER_ID, USER_EMAIL, USER_ROLE FROM accounts";
+    $result = $conn->query($sql. " WHERE USER_ROLE =  'Admin' AND USER_STATUS = 'Active' ");
 
     $log_result = get_all_logs($conn);
     if (!$log_result) { echo "Query Error: " . $conn->error; } 
@@ -20,6 +20,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css?v=1.1">
+    <link rel="stylesheet" href="../common/style.css?v=1.1">
     <title>Document</title>
 </head>
 <body>
@@ -32,15 +33,13 @@
             <nav>
                 <a href="javascript:void(0)" onclick="showSection(event, 'new-admin-container')" class="nav-btn active">Add New Admin</a>
                 <a href="javascript:void(0)" onclick="showSection(event, 'logs-container')" class="nav-btn">Activity logs</a>
+                <a href="javascript:void(0)" onclick="showSection(event, 'archive-container')" class="nav-btn">Archive Accounts</a>
                 <hr>
                 <a href="../admin/admin-dashboard.php" class="nav-link">Admin Dashboard</a>
                 <a href="../../index.php" class="nav-link">Back to Store</a>
                 <a href="../../index.php?action=logout" class="nav-btn">Logout</a>
             </nav>
         </aside>
-       <section id="dashboard-container" class="tab-content" >
-            
-       </section>
        <section id="logs-container" class="tab-content hidden">
            <div class="logs-controls">
                 <h3>System Activity Logs</h3>
@@ -152,10 +151,8 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <div class="action-btn">
-                                    <a href="reset-password.php?id=<?php echo $hashed_uid; ?>">Reset Password</a>
-                                    <a href="archive-user.php?id=<?php echo $hashed_uid; ?>" onclick = "return confirm('Archive this Admin?')">Remove (Archive)</a>
-                                    </div>
+                                    <a href="../common/reset-user-pass.php?id=<?php echo $hashed_uid; ?>" class="btn btn-approve reset-btn">Reset</a>
+                                    <a href= "../common/archive-user.php?id=<?php echo $hashed_uid; ?>" class="btn btn-archive">Archive</a>
                                 </td>
                             </tr>
                             <?php endwhile; ?>
@@ -168,7 +165,13 @@
                 </table>
             </div>
         </section>
+        
+        <!-- Archive Account section -->
+
+        
     </div>
+    <div id="toast" class="toast"></div>
 <script src="script.js"></script>
+<script src="../common/script.js"></script>
 </body>
 </html>

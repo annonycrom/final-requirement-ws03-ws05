@@ -97,6 +97,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css?v=1.1">
+    <link rel="stylesheet" href="../common/style.css?v=1.1">
     <title>Admin Dashboard</title>
 </head>
 <body>
@@ -180,7 +181,7 @@
                         </thead>
                         <tbody>
                             <?php
-                                $sql_users = "SELECT USER_ID, USER_EMAIL, USER_ROLE FROM accounts WHERE USER_ROLE = 'Regular'";
+                                $sql_users = "SELECT USER_ID, USER_EMAIL, USER_ROLE FROM accounts WHERE USER_ROLE = 'Regular' && USER_STATUS = 'Active'";
                                 $res_users = $conn->query($sql_users);
 
                                 // if (!$res_users) {
@@ -196,9 +197,8 @@
                                 <td><?php echo htmlspecialchars($user['USER_EMAIL']); ?></td>
                                 <td><?php echo htmlspecialchars($user['USER_ROLE']); ?></td>
                                 <td>
-                                    <a href="javascript:void(0)" onclick = "handleViewCancel(this)" class = "btn btn-view-cancel">View</a>
-                                    <a href="reset-password.php?id=<?php echo $hashed_uid; ?>" class="btn btn-approve">Reset</a>
-                                    <a href="archive-user.php?id=<?php echo $hashed_uid; ?>" class="btn btn-archive" onclick="return confirm('Archive this User?')">Archive</a>
+                                    <a href="../common/reset-user-pass.php?id=<?php echo $hashed_uid; ?>" class="btn btn-approve reset-btn">Reset</a>
+                                    <a href= "../common/archive-user.php?id=<?php echo $hashed_uid; ?>" class="btn btn-archive">Archive</a>
                                 </td>
                             </tr>
                             <?php endwhile; ?>
@@ -303,5 +303,5 @@
     <div id="toast" class="toast"></div>
 </body>
 <script src="script.js"></script>
-    
+<script src="../common/script.js"></script>
 </html>
