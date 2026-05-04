@@ -6,8 +6,14 @@
     if(!isset($_SESSION['logged_in']) || $_SESSION['user_role'] !== 'Super Admin'){
         header('Location: ../../index.php?error=unauthorized');
     }
-    $sql = "SELECT USER_ID, USER_EMAIL, USER_ROLE FROM accounts";
+    $role_filter = $_GET['role']  ?? 'Regular';
+    $sql = "SELECT * FROM accounts";
     $result = $conn->query($sql. " WHERE USER_ROLE =  'Admin' AND USER_STATUS = 'Active' ");
+    $archive_res = $conn->query($sql. " WHERE USER_ROLE = '$role_filter' AND USER_STATUS = 'Archived' ");
+
+    if (!$archive_res) {
+        die("Archive Query Failed: " . $conn->error);
+    }
 
     $log_result = get_all_logs($conn);
     if (!$log_result) { echo "Query Error: " . $conn->error; } 
@@ -84,7 +90,7 @@
                     <h2>Add New Admin</h2>
                     <p>Fill out the details to create a new administrative account.</p>
                 </div>
-                <form action="add-admin.php" method="post" class="admin-form">
+                    <form action="add-admin.php" method="post" data-action="../super-admin/super-admin-dashboard.php" id="addNew">
                     <div class="form-grid">
 
                         <div class="input-group">
@@ -167,8 +173,41 @@
         </section>
         
         <!-- Archive Account section -->
+         <section id="archive-container" class="tab-content hidden">
+            <div class="archive-filter">
+                <a href="?role=Regular" class="filter-btn <?php echo $role_filter == 'Regular' ? 'Active' : ''; ?>">Archived Users</a> | 
+                <a href="?role=Admin" class="filter-btn <?php echo $role_filter == 'Admin' ? 'Active' : ''; ?>">Archived Admins</a>
+            </div>
 
-        
+            <div class="table-card">
+                <table class="admin-table archiveSection">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if($archive_res->num_rows > 0): ?>
+                            <?php while($row = $archive_res->fetch_assoc()): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($row['USER_FIRST_NAME'] . ' ' . $row['USER_LAST_NAME']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['USER_EMAIL']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['USER_ROLE']); ?></td>
+                                    <td>
+                                        <a href="../common/restore-accounts.php?id=<?php echo $row['USER_ID']; ?>" class="btn btn-approve btn-restore">Restore</a>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
+                        <?php else: ?>
+                            <tr><td colspan="4">No archived <?php echo $role_filter; ?>s found.</td></tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </div>
     <div id="toast" class="toast"></div>
 <script src="script.js"></script>

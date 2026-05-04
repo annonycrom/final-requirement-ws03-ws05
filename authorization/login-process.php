@@ -36,10 +36,22 @@
         exit;    
     }
 
-    if($user['USER_STATUS'] !== 'Active'){
+    if(trim($user['USER_STATUS']) !== 'Active'){
         header('Location: auth.php?error=invalid&mode=login');
         exit;
     }
+
+
+    // uncomment this for debugging
+    // if (!$user = $result->fetch_assoc()){
+    //     die("Debug: Email not found in database.");
+    // }
+    // if(!password_verify($password, $user['USER_PASSWORD'])){
+    //     die("Debug: Password verify failed. DB Hash: " . $user['USER_PASSWORD']);
+    // }
+    // if($user['USER_STATUS'] !== 'Active'){
+    //     die("Debug: Status is " . $user['USER_STATUS'] . " instead of Active.");
+    // }
 
     $_SESSION['user_role'] = $user['USER_ROLE'];
     $_SESSION['user_id'] = $user['USER_ID'];

@@ -138,7 +138,7 @@
 
                     <h2>Add New User</h2>
 
-                    <form action="add-admin.php" method="post">
+                    <form action="add-user.php" method="post" data-action="../admin/admin-dashboard.php" id="addNew">
                         <input type="text" name="fName" id="fName" placeholder = "Add Fistname" value = "<?php echo htmlspecialchars($fName ?? ''); ?>" required>
                         <?php if(isset($errors['fName'])) :?>
                             <p><?php echo $errors['fName'];?></p>
@@ -161,13 +161,13 @@
                         <?php if(isset($errors['password'])) :?>
                             <p><?php echo $errors['password'];?></p>
                         <?php endif;?>
-                        <input type="submit" value="Create User">
+                        <input type="submit" value="Create User" id="addNew">
                     </form>
 
-                    <div class="search">
+                    <div class="search-wrapper search">
                         <label for="search">Search User</label>
                         <input type="text" name="search" id="search">
-                        <input type="button" value="Clear">
+                        <input type="button" value="Clear" id="clear-btn">
                     </div>
                 </div>
                 <div class="table-container">

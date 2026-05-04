@@ -70,3 +70,31 @@
         }
 
     });
+    // restore-btn
+    document.addEventListener('click', function(e) {
+    const restoreBtn = e.target.closest('.btn-restore');
+
+    if (restoreBtn) {
+        e.preventDefault(); 
+
+        const url = restoreBtn.getAttribute('href');
+
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                showToast(data.message, data.status);
+                if (data.status === 'success') {
+                    const row = restoreBtn.closest('tr');
+                    if (row) {
+                        row.style.opacity = '0';
+                        setTimeout(() => row.remove(), 500);
+                    }
+                }
+            })
+            .catch(err => {
+                console.error("Fetch error:", err);
+                showToast("System error occurred.", "danger");
+            });
+    }
+});
+

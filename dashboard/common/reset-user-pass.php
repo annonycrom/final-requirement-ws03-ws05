@@ -1,7 +1,7 @@
 <?php
 require('../../db-connect.php');
 
-header('Content-Type: application/json'); // Tell browser we are sending JSON
+header('Content-Type: application/json'); 
 
 if (isset($_GET['id'])) {
     $user_id = base64_decode(urldecode($_GET['id']));

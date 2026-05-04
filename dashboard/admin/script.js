@@ -28,17 +28,7 @@
         .catch(err => showToast("An error occurred. Please try again.", "error"));
     }
    
-    // taost notification function
-    function showToast(message, type){  
-        const toast = document.getElementById("toast");
-        toast.innerText = message;
-        toast.className = `toast show ${type}`;
-        setTimeout (() => toast.classList.remove("show"), 3000);
-        if(type === "success"){
-            setTimeout(() => {location.reload();}, 2500);
-        }
-    }
-
+    
     
     // restore last active section on page load
 

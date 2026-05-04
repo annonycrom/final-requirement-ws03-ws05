@@ -40,11 +40,12 @@
                 <label for="first_name">Password</label>
                 <span class="underline"></span>
             </div>
+            <!-- remember me -->
             <div class="remember-me-section" id="remember-me-section">
                 <input type="checkbox" name="remember-me" id="remember-me">
                 <label for="remember-me">Remember me</label>
             </div>
-            <!-- remember me -->
+            
             <p class="invalid <?php echo (isset($_GET['error'])) ? 'show' : ''; ?>" id="invalid">
                 <?php 
                     if (isset($_GET['error']) && $_GET['error'] == 'Archived') {
