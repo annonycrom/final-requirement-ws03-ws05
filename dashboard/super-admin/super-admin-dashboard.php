@@ -84,7 +84,8 @@
             </div>
             </div>
         </section>
-        <section id="new-admin-container" class="tab-content hidden">
+        <!-- New Admin section -->
+        <section id="new-admin-container" class="tab-content hidden usermanagement">
             <div class="new-admin-control">
                 <div class="control-header">
                     <h2>Add New Admin</h2>
@@ -123,12 +124,12 @@
                         <input type="submit" value="Create Admin" class="submit-btn">
                     </div>
                 </form>
-            </div>
-
-            <div class="search-wrapper">
-                <div class="admin-search-box">
-                    <input type="text" id="search" placeholder="Search by email...">
-                    <input type="button" id="clear-btn" value="Clear">
+                 <div class="search-wrapper">
+                    <div class="admin-search-box">
+                         <label for="search">Search Admin</label>
+                        <input type="text" id="search" placeholder="Search by email...">
+                        <input type="button" id="clear-btn" value="Clear">
+                    </div>
                 </div>
             </div>
 

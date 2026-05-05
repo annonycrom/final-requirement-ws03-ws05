@@ -164,14 +164,14 @@
                         <input type="submit" value="Create User" id="addNew">
                     </form>
 
-                    <div class="search-wrapper search">
+                    <div class="search">
                         <label for="search">Search User</label>
                         <input type="text" name="search" id="search">
                         <input type="button" value="Clear" id="clear-btn">
                     </div>
                 </div>
                 <div class="table-container">
-                    <table class="admin-table">
+                    <table class="admin-table" id="new-user">
                         <thead>
                             <tr>
                                 <th>Email</th>

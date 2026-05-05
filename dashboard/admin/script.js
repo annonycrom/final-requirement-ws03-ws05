@@ -228,6 +228,26 @@
             modal.style.display = "none";
         }
     }
+    // search function
+    document.addEventListener('DOMContentLoaded', () =>{
+        const search = document.getElementById('search');
+        const clearBtn = document.getElementById('clear-btn');
+        const rows = document.querySelectorAll('#new-user tbody tr');
+        if(!search) return;
+        
+        search.addEventListener('keyup',function(){
+            const value = this.value.toLowerCase();
+            rows.forEach(row => {
+                row.style.display = row.innerText.toLowerCase().includes(value) ? '': 'none';
+            });
+        });
+            if(clearBtn){
+            clearBtn.addEventListener('click', () =>{
+                search.value = "";
+                rows.forEach(row => row.style.display = "");
+            });
+        }
+    });
 
     
 

@@ -1,29 +1,56 @@
-   // reload prevent
-    window.addEventListener('DOMContentLoaded', ()=>{
-        const saved = localStorage.getItem('activeSection');
-        if(saved){
-            document.querySelectorAll('.tab-content').forEach(sec=>sec.classList.add('hidden'));
-            document.getElementById(saved).classList.remove('hidden');
+  // reload prevent
+    window.addEventListener('DOMContentLoaded', () => {
+        const pageKey = window.location.pathname + '-tab';
+        let saved = localStorage.getItem(pageKey);
+        
+        // 1. FALLBACK: If nothing is saved, find the button that is 'active' in the HTML
+        if (!saved) {
+            const defaultBtn = document.querySelector('.nav-btn.active');
+            if (defaultBtn) {
+                // This extracts 'new-admin-container' from your onclick string
+                const match = defaultBtn.getAttribute('onclick').match(/'([^']+)'/);
+                saved = match ? match[1] : null;
+            }
+        }
 
-            document.querySelectorAll('.nav-btn').forEach(btn=>btn.classList.remove('active'));
-            document.querySelector(`[onclick*="${saved}"]`)?.classList.add('active');
+        const targetSection = document.getElementById(saved);
+        const targetBtn = document.querySelector(`[onclick*="${saved}"]`);
+
+        // 2. Clear everything first to be sure
+        document.querySelectorAll('.tab-content').forEach(sec => sec.classList.add('hidden'));
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+        // 3. Show the target (saved or default)
+        if (targetSection) {
+            targetSection.classList.remove('hidden');
+            if (targetBtn) targetBtn.classList.add('active');
+        } else {
+            // 4. LAST RESORT: If even the default fails, show the very first section found
+            const firstSection = document.querySelector('.tab-content');
+            if (firstSection) {
+                firstSection.classList.remove('hidden');
+                // Find the matching button for the first section
+                document.querySelector(`[onclick*="${firstSection.id}"]`)?.classList.add('active');
+            }
         }
     });
 
+
+
     // tab switching in the dashboard
-    function showSection(event, sectionID){
-        const sections = document.querySelectorAll('.tab-content');
-        sections.forEach(sec=>sec.classList.add('hidden'));
+    function showSection(event, sectionID) {
+    // Generate a unique key based on the current page URL (e.g., "super-admin-dashboard-tab")
+    const pageKey = window.location.pathname + '-tab';
+    localStorage.setItem(pageKey, sectionID);
 
-        const buttons = document.querySelectorAll('.nav-btn');
-        buttons.forEach(btn=>btn.classList.remove('active'));
+    // Your existing display logic
+    document.querySelectorAll('.tab-content').forEach(sec => sec.classList.add('hidden'));
+    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
 
-        document.getElementById(sectionID).classList.remove('hidden');
-
-        event.currentTarget.classList.add('active');
-
-        localStorage.setItem('activeSection', sectionID);
+    document.getElementById(sectionID).classList.remove('hidden');
+    event.currentTarget.classList.add('active');
     }
+
     // search for logs
     document.addEventListener('DOMContentLoaded', () =>{
         const search = document.getElementById('logSearch');

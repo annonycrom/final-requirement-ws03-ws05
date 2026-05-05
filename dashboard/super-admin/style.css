@@ -199,11 +199,6 @@ nav a.active{
     align-items: start;
 }
 
-.input-group{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
 
 .admin-form input:not([type="submit"]){
     width: 100%;
@@ -308,3 +303,65 @@ nav a.active{
     color: #374151;
 }
 
+
+/* New admin section */
+.usermanagement .input-group{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.usermanagement form{
+    display: grid;
+    padding: 0;
+}
+.usermanagement .admin-search-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+.usermanagement input[type="text"],
+.usermanagement input[type="email"],
+.usermanagement input[type="password"] {
+    padding: 10px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    flex: 1;
+    min-width: 150px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+.usermanagement input:focus {
+    border-color: #007bff;
+}
+.usermanagement input[type="submit"],
+.usermanagement input[type="button"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+.usermanagement input[type="button"] {
+    background-color: #6c757d;
+}
+.usermanagement input[type="submit"]:hover,
+.usermanagement input[type="button"]:hover {
+    opacity: 0.9;
+}
+.error {
+    color: red;
+    font-size: 12px;
+    display: block;
+    margin-top: 5px;
+}
