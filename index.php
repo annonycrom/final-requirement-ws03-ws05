@@ -105,7 +105,7 @@
                     <h3><?php echo htmlspecialchars($item['ITEM_NAME']);?></h3>
                             
                     <p class="price">
-                        <?php echo number_format($item['ITEM_PRICE'], 2);?>
+                        ₱<?php echo number_format($item['ITEM_PRICE'], 2);?>
                     </p>
 
                     <p class="description">

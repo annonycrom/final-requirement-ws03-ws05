@@ -148,3 +148,53 @@ p{
 .hidden {
     display: none !important;
 }
+
+/* Add this to style.css */
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    bottom: 30px; /* Distance from bottom */
+    transform: translateX(-50%) translateY(20px);
+    font-size: 17px;
+    transition: visibility 0s, opacity 0.5s linear;
+    opacity: 0;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.toast.success { background-color: #2ecc71; }
+.toast.error { background-color: #e74c3c; }
+
+.input_container {
+    position: relative; /* This is the anchor */
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.input_container input {
+    width: 100%;
+    padding-right: 40px; /* Crucial: Leaves space for the eye */
+    box-sizing: border-box;
+}
+
+#togglePassword {
+    position: absolute;
+    right: 5px;   /* Adjusted to stay inside the line */
+    top: 50%;     /* Center it vertically */
+    transform: translateY(-50%); 
+    cursor: pointer;
+    z-index: 9999;  /* Forces it to the front layer */
+    color: #777;
+    padding: 5px; /* Makes it easier to click */
+}

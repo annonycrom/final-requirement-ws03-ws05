@@ -115,7 +115,7 @@
                         </div>
 
                         <div class="input-group">
-                            <input type="password" name="password" id="password" placeholder = "Temporary Password" required>
+                            <input type="text" name="password" id="password" value="Default123" readonly>
                             <?php if(isset($errors['password'])) :?>
                                 <span class="error"><?php echo $errors['password'];?></span>
                             <?php endif;?>

@@ -58,14 +58,15 @@
         $action = "Add admin";
         $details = "Addedd admin user";
         record_activity($conn, $performer_id, $action, $details);
-    
+        $response = ['status' => 'success', 'message' => 'New user added successfully!'];
     }else{
      
         // die('Execution Error: '.$stmt->error);
-        $response = [
-            'status' => 'error',
-            'message' => 'Execution Error: '.$stmt->error
-        ];
+        if ($conn->errno == 1062) {
+            $response = ['status' => 'error', 'message' => 'Email already taken!'];
+        } else {
+            $response = ['status' => 'error', 'message' => 'Execution Error: ' . $stmt->error];
+        }
     }
 
     echo json_encode($response);

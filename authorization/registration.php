@@ -1,5 +1,7 @@
 <?php
     require('../db-connect.php');
+    header('Content-Type: application/json'); 
+
     function sanitize($input){
         if(empty($input)){
             return null;
@@ -31,19 +33,23 @@
     $sql = "INSERT INTO accounts (USER_FIRST_NAME,USER_LAST_NAME,USER_EMAIL,USER_PASSWORD) VALUES (?,?,?,?)";
     $stmt = $conn->prepare($sql);
 
-    if($stmt){
-        $stmt->bind_param("ssss",$first_name,$last_name,$email,$password_hashed);
+   if ($stmt) {
+    
+    $stmt->bind_param("ssss", $first_name, $last_name, $email, $password_hashed);
 
-        if($stmt->execute()){
-            header("Location: ../index.php?status=success");
-            exit;
-        }else{
-            echo "Error ". $conn->error;
-            exit;
+    if ($stmt->execute()) {
+        echo json_encode(['status' => 'success', 'message' => 'Account created successfully!']);
+    } else {
+       if ($conn->errno == 1062) {
+            echo json_encode(['status' => 'error', 'message' => 'Email already taken!']);
+        } else {
+            echo json_encode(['status' => 'success', 'message' => 'Registration Successful!']);
         }
-        $stmt->close();
-    }else{
-        echo"Database Error.". $conn->error;
         exit;
     }
+    $stmt->close();
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Server error.']);
+    }
+    exit;
 ?>

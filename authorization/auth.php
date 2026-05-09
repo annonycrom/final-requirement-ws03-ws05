@@ -13,6 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css?v=1.1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" crossorigin="anonymous">
     <title>Document</title>
 </head>
 <body>
@@ -39,6 +40,7 @@
                 <input type="password" name="password" id="password" required>
                 <label for="first_name">Password</label>
                 <span class="underline"></span>
+                <i class="fas fa-eye" id="togglePassword"></i>
             </div>
             <!-- remember me -->
             <div class="remember-me-section" id="remember-me-section">
@@ -62,6 +64,7 @@
             </p>
         </form>
     </div>
+    <div id="toast" class="toast"></div>
 </body>
 <script>
     document.addEventListener('DOMContentLoaded',()=>{
@@ -118,6 +121,78 @@
             })
 
         });
+    // taost function
+         function showToast(message, type){  
+            const toast = document.getElementById("toast");
+            if(!toast) return;
+            toast.innerText = message;
+            toast.className = `toast show ${type}`;
+            setTimeout (() => toast.classList.remove("show"), 3000);
+            if(type === "success"){
+                // Redirect to login or home after success
+                setTimeout(() => { window.location.href = "auth.php?mode=login"; }, 2500);
+            }
+        }
+
+        form.addEventListener('submit', function(e) {
+            // Only use AJAX for registration
+            if (form.action.includes('registration.php')) {
+                e.preventDefault();
+
+                const password = document.getElementById('password').value.trim();
+                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+                // console.log("Password:", password);
+                // console.log("Length:", password.length);
+                // console.log("Passes Regex:", passwordRegex.test(password));
+
+                // if (!passwordRegex.test(password)) {
+                //     showToast("Password must have at least 8 characters...", "error");
+                //     return;
+                // }
+                if (!passwordRegex.test(password)) {
+                    showToast("Password must have at least 8 characters, including 1 uppercase, 1 lowercase, and 1 number.", "error");
+                    return; // Stop the form from submitting
+                }
+                const formData = new FormData(this);
+
+                fetch('registration.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        showToast(data.message, "success");
+                        // The reload is handled inside your showToast function
+                    } else {
+                        showToast(data.message, "error");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showToast("An error occurred.", "error");
+                });
+            }
+        });
+
+        
+
+
+        const passwordInput = document.getElementById('password');
+        const togglePassword = document.getElementById('togglePassword');
+
+        togglePassword.addEventListener('click', function () {
+            // Toggle the type attribute
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Toggle the icon classes
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+
     });
 </script>
 </html>

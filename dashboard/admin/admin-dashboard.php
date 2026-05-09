@@ -157,7 +157,7 @@
                         <?php endif;?>
 
                         
-                        <input type="password" name="password" id="password" placeholder = "Temporary Password" required>
+                        <input type="text" name="password" id="password" value="Default123" readonly>
                         <?php if(isset($errors['password'])) :?>
                             <p><?php echo $errors['password'];?></p>
                         <?php endif;?>
